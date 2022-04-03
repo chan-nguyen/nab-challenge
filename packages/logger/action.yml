@@ -1,0 +1,26 @@
+name: Build logger
+author: Kymono
+
+description: |-
+  Steps to build logger package
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup build
+      uses: ./.github/actions/setup-build
+
+    - name: Run lint check
+      run: yarn lint
+      shell: bash
+      working-directory: ${{github.action_path}}
+
+    - name: Run test
+      run: yarn test
+      shell: bash
+      working-directory: ${{github.action_path}}
+
+    - name: Run type-check
+      run: yarn type-check
+      shell: bash
+      working-directory: ${{github.action_path}}
