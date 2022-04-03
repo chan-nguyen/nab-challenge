@@ -7,7 +7,7 @@ const extractRequestToLog = (request: Request) => {
     method,
     url,
     ip,
-    headers: { 'n-correlation-id': correlationId, 'user-agent': agent },
+    headers: { 'correlation-id': correlationId, 'user-agent': agent },
   } = request;
 
   return { agent, method, url, ip, correlationId };

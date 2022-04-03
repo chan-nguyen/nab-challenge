@@ -1,7 +1,7 @@
-import { HttpStatus } from './httpStatus';
 import { HttpError } from 'http-errors';
 import { Context, Next } from 'koa';
 import { ZodError } from 'zod';
+import { HttpStatus } from './httpStatus';
 
 function isZodError(error: unknown): error is ZodError {
   return error instanceof Error && error.name === 'ZodError';
@@ -22,15 +22,6 @@ export const koaErrorHandlerMiddleware = async (
       ? error.statusCode
       : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    /**
-     * We'd like to return { error } but:
-     * - in case of ZodError,
-     *     `message` is JSON.stringify(issues) which is not readable
-     *     we return the error object which includes issues instead.
-     * - in case of DatabaseError,
-     *     `message` is not included (why?),
-     *     so we want to include it (way more explicit than the object)
-     */
     ctx.body = {
       error: {
         ...(error as Error),

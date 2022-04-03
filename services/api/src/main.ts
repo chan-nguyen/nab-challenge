@@ -1,5 +1,10 @@
 import cors from '@koa/cors';
 import { logger } from '@nab/logger';
+import {
+  koaCorrelationIdMiddleware,
+  koaErrorHandlerMiddleware,
+  koaLoggerMiddleware,
+} from '@nab/middlewares';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
@@ -11,6 +16,10 @@ const run = () => {
   app.use(helmet());
   app.use(cors());
   app.use(bodyParser());
+
+  app.use(koaErrorHandlerMiddleware);
+  app.use(koaCorrelationIdMiddleware);
+  app.use(koaLoggerMiddleware);
 
   app.use(router.routes());
   app.use(router.allowedMethods());
