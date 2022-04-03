@@ -1,0 +1,20 @@
+name: Build middlewares package
+
+description: |-
+  Steps to build middlewares package
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup build
+      uses: ./.github/actions/setup-build
+
+    - name: Run lint check
+      run: yarn lint
+      shell: bash
+      working-directory: ${{github.action_path}}
+
+    - name: Run type-check
+      run: yarn type-check
+      shell: bash
+      working-directory: ${{github.action_path}}

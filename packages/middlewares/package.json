@@ -1,0 +1,43 @@
+{
+  "name": "@nab/middlewares",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start": "echo 'no need to start this package'",
+    "build": "yarn type-check",
+    "type-check": "tsc --pretty --noEmit",
+    "format": "prettier --write .",
+    "jest": "echo 'no need to jest this package'",
+    "lint": "eslint src",
+    "lint:fix": "yarn lint --fix",
+    "test": "yarn jest",
+    "validate": "yarn lint && yarn type-check && yarn test"
+  },
+  "dependencies": {
+    "@nab/logger": "^0.1.0",
+    "koa": "^2.13.4",
+    "koa-logger": "^3.2.1",
+    "zod": "^3.14.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@types/koa": "^2.13.4",
+    "@types/koa-logger": "^3.1.2",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "prettier": "^2.6.1",
+    "typescript": "^4.6.3"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
+  }
+}
