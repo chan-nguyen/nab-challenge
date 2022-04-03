@@ -1,0 +1,30 @@
+{
+  "name": "nab-challenge",
+  "version": "1.0.0",
+  "repository": "git@github.com:chan-nguyen/nab-challenge.git",
+  "description": "Simple online shopping app with a monorepo architecture",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "services/*"
+  ],
+  "scripts": {
+    "lint:fix": "yarn workspaces run lint:fix",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/parser": "^5.17.0",
+    "commitlint": "^16.2.3",
+    "conventional-changelog-conventionalcommits": "^4.6.3",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-functional": "^4.2.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "prettier": "^2.6.1",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  }
+}
