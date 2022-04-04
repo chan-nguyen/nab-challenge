@@ -1,13 +1,13 @@
-name: Build api service
+name: Build history service
 
 description: |-
-  Steps to build api service
+  Steps to build history service
 
 runs:
   using: 'composite'
   steps:
-    - name: Setup build
-      uses: ./.github/actions/setup-build
+    - name: Setup environment
+      uses: ./.github/actions/setup
 
     - name: Run lint check
       run: yarn lint

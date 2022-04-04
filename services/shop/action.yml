@@ -1,7 +1,7 @@
-name: Build middlewares package
+name: Build shop service
 
 description: |-
-  Steps to build middlewares package
+  Steps to build shop service
 
 runs:
   using: 'composite'
@@ -11,6 +11,11 @@ runs:
 
     - name: Run lint check
       run: yarn lint
+      shell: bash
+      working-directory: ${{github.action_path}}
+
+    - name: Run test
+      run: yarn test
       shell: bash
       working-directory: ${{github.action_path}}
 

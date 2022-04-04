@@ -1,5 +1,4 @@
 name: Build logger
-author: Kymono
 
 description: |-
   Steps to build logger package
@@ -7,8 +6,8 @@ description: |-
 runs:
   using: 'composite'
   steps:
-    - name: Setup build
-      uses: ./.github/actions/setup-build
+    - name: Setup environment
+      uses: ./.github/actions/setup
 
     - name: Run lint check
       run: yarn lint

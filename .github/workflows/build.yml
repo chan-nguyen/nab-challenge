@@ -7,16 +7,25 @@ on:
       - '!master'
 
 jobs:
-  build-services-api:
+  build-service-shop:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build api service
-        uses: ./services/api
+      - name: Setup environment service
+        uses: ./services/shop
 
-  build-middlewares:
+  build-service-history:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup environment service
+        uses: ./services/shop
+
+  build-package-middlewares:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,3 +33,12 @@ jobs:
 
       - name: Build middlewares
         uses: ./packages/middlewares
+
+  build-package-logger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build logger
+        uses: ./packages/logger
