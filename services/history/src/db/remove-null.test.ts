@@ -1,6 +1,6 @@
 import { removeNull } from './remove-null';
 
-it('removeEmpty should remove keys with null values', () => {
+test('removeEmpty should remove keys with null values', () => {
   expect(removeNull({ a: 123, b: null })).toEqual({ a: 123 });
 
   expect(removeNull({ a: 123, b: null, c: { d: 'xyw', e: null } })).toEqual({
@@ -9,21 +9,21 @@ it('removeEmpty should remove keys with null values', () => {
   });
 });
 
-it('removeEmpty should remove keys with null values in array of object', () => {
+test('removeEmpty should remove keys with null values in array of object', () => {
   expect(removeNull({ a: 123, b: null, c: [{ d: 'xyz', e: null }] })).toEqual({
     a: 123,
     c: [{ d: 'xyz' }],
   });
 });
 
-it('removeEmpty should not remove string in array of strings', () => {
+test('removeEmpty should not remove string in array of strings', () => {
   expect(removeNull({ a: 123, b: null, c: ['xyz'] })).toEqual({
     a: 123,
     c: ['xyz'],
   });
 });
 
-it('removeEmpty should keep string, number of date fields', () => {
+test('removeEmpty should keep string, number of date fields', () => {
   const dt = new Date();
   expect(removeNull({ a: 123, b: '', c: dt, d: null })).toEqual({
     a: 123,
@@ -32,7 +32,7 @@ it('removeEmpty should keep string, number of date fields', () => {
   });
 });
 
-it('removeEmpty should change null to undefined in array fields', () => {
+test('removeEmpty should change null to undefined in array fields', () => {
   expect(removeNull({ a: 123, b: null, c: ['xyz', null, ''] })).toEqual({
     a: 123,
     c: ['xyz', undefined, ''],
