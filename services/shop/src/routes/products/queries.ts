@@ -1,5 +1,5 @@
 import { query } from '../../db/query';
-import { Product, ProductDetails } from './types';
+import { Product, ProductDetails, Variant } from './types';
 
 export const querySelectProducts = async (): Promise<Product[]> => {
   const sql = `
@@ -17,6 +17,7 @@ export const querySelectProduct = async (
     SELECT p.id, p.name, p.description, p.brand,
       JSON_AGG(
         JSONB_BUILD_OBJECT(
+          'id', v.id,
           'sku', v.sku,
           'name', v.name,
           'color', c.name,
@@ -32,5 +33,22 @@ export const querySelectProduct = async (
     GROUP BY p.id;
   `;
   const result = await query(sql, [productId]);
+  return result.rows[0];
+};
+
+export const querySelectVariant = async (
+  variantId: number,
+): Promise<Variant> => {
+  const sql = `
+    SELECT v.id, v.name, v.sku, c.name, s.name, v.price,
+      p.id AS product_id, p.name AS product_name,
+      p.description, p.brand
+    FROM variants v
+    LEFT JOIN products p ON p.id = v.product_id
+    LEFT JOIN colors c ON c.id = v.color_id
+    LEFT JOIN sizes s ON s.id = v.size_id
+    WHERE v.id = $1
+  `;
+  const result = await query(sql, [variantId]);
   return result.rows[0];
 };

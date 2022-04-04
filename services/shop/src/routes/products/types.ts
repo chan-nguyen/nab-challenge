@@ -6,13 +6,20 @@ export type Product = {
 };
 
 type ProductVariant = {
+  id: number;
   sku: string;
   name: string;
   color: string;
   size: string;
-  price: DoubleRange;
+  price: number;
 };
 
 export type ProductDetails = Product & {
-  variantss: ProductVariant[];
+  variants: ProductVariant[];
 };
+
+export type Variant = ProductVariant &
+  Product & {
+    product_id: number;
+    product_name: string;
+  };
