@@ -40,8 +40,8 @@ export const querySelectVariant = async (
   variantId: number,
 ): Promise<Variant> => {
   const sql = `
-    SELECT v.id, v.name, v.sku, c.name, s.name, v.price,
-      p.id AS product_id, p.name AS product_name,
+    SELECT v.id, v.name, v.sku, c.name AS color, s.name AS size,
+      v.price, p.id AS product_id, p.name AS product_name,
       p.description, p.brand
     FROM variants v
     LEFT JOIN products p ON p.id = v.product_id
