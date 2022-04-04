@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--dns-result-order=ipv4first' nodemon",
-    "debug": "nodemon --exec 'node --dns-result-order=ipv4first --inspect --require ts-node/register src/main.ts'",
+    "debug": "nodemon --exec 'node --dns-result-order=ipv4first --inspect --require dotenv/config --require ts-node/register src/main.ts'",
     "start": "ts-node src/main.ts",
     "build": "yarn type-check",
     "type-check": "tsc --pretty --noEmit",
@@ -23,6 +23,7 @@
     "@koa/router": "^10.1.1",
     "@nab/logger": "^0.1.0",
     "@nab/middlewares": "^0.1.0",
+    "axios": "^0.26.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-helmet": "^6.1.0",
