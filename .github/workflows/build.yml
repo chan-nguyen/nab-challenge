@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!master'
+
+jobs:
+  build-service-shop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup environment service
+        uses: ./services/shop
+
+  build-service-history:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup environment service
+        uses: ./services/shop
+
+  build-package-middlewares:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build middlewares
+        uses: ./packages/middlewares
+
+  build-package-logger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build logger
+        uses: ./packages/logger

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "outDir": ".tsc-out",
+    "sourceMap": true,
+    "isolatedModules": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "files": ["src/main.ts"]
+}
