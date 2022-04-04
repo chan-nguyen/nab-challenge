@@ -1,6 +1,6 @@
 import Router from '@koa/router';
 import { Middleware } from 'koa';
-import { getProducts } from './products/routes';
+import { getProduct, getProducts, getVariant } from './products/routes';
 
 export type NRoute<
   Response,
@@ -11,3 +11,5 @@ export type NRoute<
 export const router = new Router();
 
 router.get('/products', getProducts);
+router.get('/products/:id', getProduct);
+router.get('/variants/:id', getVariant);
