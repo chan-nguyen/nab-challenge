@@ -1,7 +1,7 @@
 import Router from '@koa/router';
 import { Middleware } from 'koa';
 import { postActivities } from './activities/routes';
-import { getUsers } from './users/routes';
+import { getUserActivities, getUsers } from './users/routes';
 
 export type NRoute<
   Response,
@@ -12,4 +12,5 @@ export type NRoute<
 export const router = new Router();
 
 router.get('/users', getUsers);
+router.get('/users/:id/activities', getUserActivities);
 router.post('/activities', postActivities);

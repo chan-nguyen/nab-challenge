@@ -31,3 +31,8 @@ export type ActivityDb = Activity & Omit<BaseDb, 'updatedAt'>;
 export type ActivityPostData = Omit<Activity, 'productId'> & {
   product: Product;
 };
+
+export type UserActivity = Omit<ActivityDb, 'activityTypeId' | 'productId'> & {
+  activity: string;
+  product?: Product;
+};

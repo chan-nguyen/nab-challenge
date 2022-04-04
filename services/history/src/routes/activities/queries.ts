@@ -20,10 +20,10 @@ export const queryCreateProduct = async ({
   price,
 }: Product): Promise<ProductDb> => {
   const sql = `
-    INSERT INTO products (id, name, description, brand, sku, variant_id, color, size, price)
-    VALUE ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    INSERT INTO products (id, name, description, brand, sku, variant_id, variant_name, color, size, price)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     ON CONFLICT (id)
-    DO NOTHINGE
+    DO NOTHING
     RETURNING *;
   `;
   const result = await query(sql, [
@@ -48,7 +48,8 @@ export const queryCreateActivity = async ({
   productId,
 }: Activity): Promise<ActivityDb> => {
   const sql = `
-    INSERT INTO  activities (user_id, activity_type_id, parameters, productId)
+    INSERT INTO activities (user_id, activity_type_id, parameters, product_id)
+    VALUES ($1, $2, $3, $4)
     RETURNING *;
   `;
   const result = await query(sql, [
@@ -66,7 +67,7 @@ export const createActivity = async ({
   parameters,
   product,
 }: ActivityPostData): Promise<ActivityDb> => {
-  await queryCreateProduct(product);
+  if (product) await queryCreateProduct(product);
   const activity = await queryCreateActivity({
     userId,
     activityTypeId,
