@@ -1,7 +1,7 @@
-name: Build middlewares package
+name: Build http package
 
 description: |-
-  Steps to build middlewares package
+  Steps to build http package
 
 runs:
   using: 'composite'

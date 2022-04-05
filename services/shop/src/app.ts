@@ -1,10 +1,10 @@
 import cors from '@koa/cors';
-import { logger } from '@nab/logger';
 import {
   koaCorrelationIdMiddleware,
   koaErrorHandlerMiddleware,
   koaLoggerMiddleware,
-} from '@nab/middlewares';
+} from '@nab/http';
+import { logger } from '@nab/logger';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
