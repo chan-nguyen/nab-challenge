@@ -1,4 +1,4 @@
-import { query } from '../../db/query';
+import { query } from '@nab/db';
 import { UserActivity } from '../activities/types';
 import { User } from './types';
 

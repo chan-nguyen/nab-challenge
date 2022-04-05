@@ -1,4 +1,4 @@
-import { removeNull } from './remove-null';
+import { removeNull } from './removeNull';
 
 test('removeEmpty should remove keys with null values', () => {
   expect(removeNull({ a: 123, b: null })).toEqual({ a: 123 });

@@ -1,6 +1,6 @@
 import { logger } from '@nab/logger';
 import { Pool, QueryResult, types } from 'pg';
-import { removeNull } from './remove-null';
+import { removeNull } from './removeNull';
 
 /*
   JS does not support 64-bit integers. node-postgres driver returns 64-bit integers
