@@ -1,7 +1,7 @@
 import { HttpError } from 'http-errors';
 import { Context, Next } from 'koa';
 import { ZodError } from 'zod';
-import { HttpStatus } from './httpStatus';
+import { HttpStatus } from '../httpStatus';
 
 function isZodError(error: unknown): error is ZodError {
   return error instanceof Error && error.name === 'ZodError';

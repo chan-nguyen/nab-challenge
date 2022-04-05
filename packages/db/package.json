@@ -1,0 +1,41 @@
+{
+  "name": "@nab/db",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start": "echo 'no need to start this package'",
+    "build": "yarn type-check",
+    "type-check": "tsc --pretty --noEmit",
+    "format": "prettier --write .",
+    "jest": "jest --detectOpenHandles",
+    "lint": "eslint src",
+    "lint:fix": "yarn lint --fix",
+    "test": "yarn jest",
+    "validate": "yarn lint && yarn type-check && yarn test"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@types/pg": "^8.6.5",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.6.1",
+    "ts-jest": "^27.1.4",
+    "typescript": "^4.6.3"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
+  },
+  "dependencies": {
+    "pg": "^8.7.3"
+  }
+}

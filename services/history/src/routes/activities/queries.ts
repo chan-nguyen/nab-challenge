@@ -1,4 +1,4 @@
-import { query } from '../../db/query';
+import { query } from '@nab/db';
 import {
   Activity,
   ActivityDb,
