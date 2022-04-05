@@ -1,5 +1,5 @@
+import { NRoute } from '@nab/http';
 import { callApi } from '../../utils/request';
-import { NRoute } from '../router';
 import {
   querySelectProduct,
   querySelectProducts,

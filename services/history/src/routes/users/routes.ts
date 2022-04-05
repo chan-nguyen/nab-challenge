@@ -1,5 +1,5 @@
+import { NRoute } from '@nab/http';
 import { UserActivity } from '../activities/types';
-import { NRoute } from '../router';
 import { querySelectUserActivitys, querySelectUsers } from './queries';
 import { User } from './types';
 

@@ -1,4 +1,4 @@
-import { NRoute } from '../router';
+import { NRoute } from '@nab/http';
 import { createActivity } from './queries';
 import { ActivityDb } from './types';
 

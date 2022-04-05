@@ -1,6 +1,10 @@
+import { app } from '@nab/http';
 import nock from 'nock';
 import request from 'supertest';
-import { app } from '../app';
+import { router } from '../routes/router';
+
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 const historyServiceUrl =
   process.env.HISTORY_SERVICE_URL ?? 'http://localhost:8090';
