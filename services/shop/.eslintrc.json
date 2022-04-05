@@ -26,6 +26,7 @@
     "require-await": "error",
     "no-async-promise-executor": "error",
     "node/no-unsupported-features/es-syntax": "off",
-    "node/no-missing-import": "off"
+    "node/no-missing-import": "off",
+    "node/no-unpublished-import": "off"
   }
 }

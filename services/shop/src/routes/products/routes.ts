@@ -30,7 +30,7 @@ export const getVariant: NRoute<Variant> = async ({
   const variant = await querySelectVariant(Number(id));
 
   const url = process.env.HISTORY_SERVICE_URL + '/activities';
-  await callApi(url, 'POST', {
+  const activity = await callApi(url, 'POST', {
     userId,
     activityTypeId,
     product: {
@@ -41,5 +41,7 @@ export const getVariant: NRoute<Variant> = async ({
       variantName: variant.name,
     },
   });
+
+  if (!activity) throw new Error('Could not save activity');
   response.body = variant;
 };
