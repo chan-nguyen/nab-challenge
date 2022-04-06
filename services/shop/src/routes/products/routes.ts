@@ -1,15 +1,45 @@
 import { NRoute } from '@nab/http';
-import { v4 as uuidv4 } from 'uuid';
-import { callApi } from '../../utils/request';
+import { callApi } from '../../utils/apiCaller';
+import { buildCorrelationIdObject } from '../../utils/correlationId';
 import {
   querySelectProduct,
   querySelectProducts,
   querySelectVariant,
 } from './queries';
-import { PositiveNumber, Product, ProductDetails, Variant } from './types';
+import {
+  ActivityType,
+  PositiveNumber,
+  Product,
+  ProductDetails,
+  Variant,
+} from './types';
 
-export const getProducts: NRoute<Product[]> = async ({ response }) => {
-  response.body = await querySelectProducts();
+const activitiesUrl = process.env.HISTORY_SERVICE_URL + '/activities';
+
+export const getProducts: NRoute<Product[]> = async ({ request, response }) => {
+  const { s: searchString } = request.query;
+  const products = await querySelectProducts(searchString as string);
+
+  if (searchString) {
+    const { 'user-id': userId, 'correlation-id': correlationId } =
+      request.headers;
+    const activity = await callApi(
+      activitiesUrl,
+      'POST',
+      {
+        userId,
+        activityTypeId: ActivityType.SEARCH,
+        parameters: {
+          searchString,
+        },
+      },
+      buildCorrelationIdObject(correlationId),
+    );
+
+    if (!activity) throw new Error('Could not save activity');
+  }
+
+  response.body = products;
 };
 
 export const getProduct: NRoute<ProductDetails> = async ({
@@ -28,18 +58,14 @@ export const getVariant: NRoute<Variant> = async ({
   const id = PositiveNumber.parse(Number(params.id));
   const variant = await querySelectVariant(id);
 
-  const {
-    'user-id': userId,
-    'activity-type-id': activityTypeId,
-    'correlation-id': correlationId,
-  } = request.headers;
-  const url = process.env.HISTORY_SERVICE_URL + '/activities';
+  const { 'user-id': userId, 'correlation-id': correlationId } =
+    request.headers;
   const activity = await callApi(
-    url,
+    activitiesUrl,
     'POST',
     {
       userId,
-      activityTypeId,
+      activityTypeId: ActivityType.VIEW,
       product: {
         ...variant,
         id: variant.product_id,
@@ -48,7 +74,7 @@ export const getVariant: NRoute<Variant> = async ({
         variantName: variant.name,
       },
     },
-    { 'correlation-id': correlationId ? (correlationId as string) : uuidv4() },
+    buildCorrelationIdObject(correlationId),
   );
 
   if (!activity) throw new Error('Could not save activity');

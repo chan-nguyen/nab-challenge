@@ -17,8 +17,5 @@ export const callApi = <D>(
     data,
   };
 
-  // if we need to check response status, should do it here
-  // axios.interceptors.response.use(response => response, error => Promise.reject(error));
-
   return axios(config).then((response) => response && response.data);
 };

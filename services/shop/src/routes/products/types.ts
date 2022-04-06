@@ -1,5 +1,12 @@
 import { z } from 'zod';
 
+export enum ActivityType {
+  FILTER = 1,
+  SORT,
+  SEARCH,
+  VIEW,
+}
+
 export const PositiveNumber = z.number().positive();
 
 export const ProductSchema = z.object({
