@@ -1,5 +1,6 @@
 import { NRoute } from '@nab/http';
-import { callApi } from '../../utils/request';
+import { callApi } from '../../utils/apiCaller';
+import { buildCorrelationIdObject } from '../../utils/correlationId';
 import {
   querySelectProduct,
   querySelectProducts,
@@ -32,9 +33,7 @@ export const getProducts: NRoute<Product[]> = async ({ request, response }) => {
           searchString,
         },
       },
-      {
-        'correlation-id': correlationId as string,
-      },
+      buildCorrelationIdObject(correlationId),
     );
 
     if (!activity) throw new Error('Could not save activity');
@@ -75,7 +74,7 @@ export const getVariant: NRoute<Variant> = async ({
         variantName: variant.name,
       },
     },
-    { 'correlation-id': correlationId as string },
+    buildCorrelationIdObject(correlationId),
   );
 
   if (!activity) throw new Error('Could not save activity');
