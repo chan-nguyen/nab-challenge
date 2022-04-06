@@ -1,25 +1,36 @@
-export type Product = {
-  id: number;
-  name: string;
-  description: string;
-  brand: string;
-};
+import { z } from 'zod';
 
-type ProductVariant = {
-  id: number;
-  sku: string;
-  name: string;
-  color: string;
-  size: string;
-  price: number;
-};
+export const PositiveNumber = z.number().positive();
 
-export type ProductDetails = Product & {
-  variants: ProductVariant[];
-};
+export const ProductSchema = z.object({
+  id: PositiveNumber,
+  name: z.string(),
+  description: z.string(),
+  brand: z.string(),
+});
 
-export type Variant = ProductVariant &
-  Product & {
-    product_id: number;
-    product_name: string;
-  };
+export type Product = z.infer<typeof ProductSchema>;
+
+export const ProductVariantSchema = z.object({
+  id: PositiveNumber,
+  sku: z.string(),
+  name: z.string(),
+  color: z.string(),
+  size: z.string(),
+  price: PositiveNumber,
+});
+
+export type ProductVariant = z.infer<typeof ProductVariantSchema>;
+
+export const ProductDetailsSchema = ProductSchema.extend({
+  variants: ProductVariantSchema.array(),
+});
+
+export type ProductDetails = z.infer<typeof ProductDetailsSchema>;
+
+export const VariantSchema = ProductVariantSchema.merge(ProductSchema).extend({
+  product_id: PositiveNumber,
+  product_name: z.string(),
+});
+
+export type Variant = z.infer<typeof VariantSchema>;
