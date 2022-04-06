@@ -1,5 +1,12 @@
 import { query } from '@nab/db';
-import { Product, ProductDetails, Variant } from './types';
+import {
+  Product,
+  ProductDetails,
+  ProductDetailsSchema,
+  ProductSchema,
+  Variant,
+  VariantSchema,
+} from './types';
 
 export const querySelectProducts = async (): Promise<Product[]> => {
   const sql = `
@@ -7,7 +14,7 @@ export const querySelectProducts = async (): Promise<Product[]> => {
     FROM products;
   `;
   const result = await query(sql, []);
-  return result.rows;
+  return ProductSchema.array().parse(result.rows);
 };
 
 export const querySelectProduct = async (
@@ -33,7 +40,7 @@ export const querySelectProduct = async (
     GROUP BY p.id;
   `;
   const result = await query(sql, [productId]);
-  return result.rows[0];
+  return ProductDetailsSchema.parse(result.rows[0]);
 };
 
 export const querySelectVariant = async (
@@ -50,5 +57,5 @@ export const querySelectVariant = async (
     WHERE v.id = $1
   `;
   const result = await query(sql, [variantId]);
-  return result.rows[0];
+  return VariantSchema.parse(result.rows[0]);
 };
