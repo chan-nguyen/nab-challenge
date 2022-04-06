@@ -1,3 +1,3 @@
-it('fake test', () => {
+test('fake test', () => {
   expect(true).toEqual(true);
 });
