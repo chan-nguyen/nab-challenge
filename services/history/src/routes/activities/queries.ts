@@ -72,7 +72,7 @@ export const createActivity = async ({
     userId,
     activityTypeId,
     parameters,
-    productId: product.id,
+    productId: product?.id,
   });
   return activity;
 };

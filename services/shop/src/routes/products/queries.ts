@@ -1,4 +1,5 @@
 import { query } from '@nab/db';
+import { buildSearchQuery } from '../../utils/queryBuilder';
 import {
   Product,
   ProductDetails,
@@ -8,11 +9,18 @@ import {
   VariantSchema,
 } from './types';
 
-export const querySelectProducts = async (): Promise<Product[]> => {
-  const sql = `
+export const querySelectProducts = async (
+  searchString: string,
+): Promise<Product[]> => {
+  const baseSql = `
     SELECT id, name, description, brand
-    FROM products;
+    FROM products
   `;
+  const sql = !searchString
+    ? baseSql
+    : `${baseSql}
+    WHERE ${buildSearchQuery(['name', 'description', 'brand'], searchString)}`;
+
   const result = await query(sql, []);
   return ProductSchema.array().parse(result.rows);
 };
