@@ -1,5 +1,4 @@
 import { NRoute } from '@nab/http';
-import { v4 as uuidv4 } from 'uuid';
 import { callApi } from '../../utils/request';
 import {
   querySelectProduct,
@@ -18,23 +17,23 @@ const activitiesUrl = process.env.HISTORY_SERVICE_URL + '/activities';
 
 export const getProducts: NRoute<Product[]> = async ({ request, response }) => {
   const { s: searchString } = request.query;
-  console.log(typeof searchString);
   const products = await querySelectProducts(searchString as string);
 
   if (searchString) {
-    const { 'correlation-id': correlationId } = request.headers;
+    const { 'user-id': userId, 'correlation-id': correlationId } =
+      request.headers;
     const activity = await callApi(
       activitiesUrl,
       'POST',
       {
-        userId: request.headers['user-id'],
+        userId,
         activityTypeId: ActivityType.SEARCH,
         parameters: {
           searchString,
         },
       },
       {
-        'correlation-id': correlationId ? (correlationId as string) : uuidv4(),
+        'correlation-id': correlationId as string,
       },
     );
 
@@ -60,12 +59,13 @@ export const getVariant: NRoute<Variant> = async ({
   const id = PositiveNumber.parse(Number(params.id));
   const variant = await querySelectVariant(id);
 
-  const { 'correlation-id': correlationId } = request.headers;
+  const { 'user-id': userId, 'correlation-id': correlationId } =
+    request.headers;
   const activity = await callApi(
     activitiesUrl,
     'POST',
     {
-      userId: request.headers['user-id'],
+      userId,
       activityTypeId: ActivityType.VIEW,
       product: {
         ...variant,
@@ -75,7 +75,7 @@ export const getVariant: NRoute<Variant> = async ({
         variantName: variant.name,
       },
     },
-    { 'correlation-id': correlationId ? (correlationId as string) : uuidv4() },
+    { 'correlation-id': correlationId as string },
   );
 
   if (!activity) throw new Error('Could not save activity');
