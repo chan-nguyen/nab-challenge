@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--dns-result-order=ipv4first' nodemon",
     "debug": "nodemon --exec 'node --dns-result-order=ipv4first --inspect --require dotenv/config --require ts-node/register src/main.ts'",
-    "start": "ts-node src/main.ts",
+    "start": "ts-node --require dotenv/config src/main.ts",
     "build": "yarn type-check",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",

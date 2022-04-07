@@ -43,7 +43,7 @@ jobs:
       - name: Build logger
         uses: ./packages/logger
 
-  build-db:
+  build-package-db:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
