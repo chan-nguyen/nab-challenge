@@ -214,7 +214,7 @@ Start the `shop` service
 yarn workspace shop start
 ```
 
-The `shop` service is running at http://localhost:8080
+The `shop` service should be running at http://localhost:8080
 
 Open another terminal, start the `history` service
 
@@ -222,7 +222,7 @@ Open another terminal, start the `history` service
 yarn workspace history start
 ```
 
-The `history` service is running at http://localhost:8090
+The `history` service should be running at http://localhost:8090
 
 ## CURL commands to verify APIs
 
