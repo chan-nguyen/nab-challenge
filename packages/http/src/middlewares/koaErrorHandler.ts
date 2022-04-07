@@ -31,7 +31,6 @@ export const koaErrorHandlerMiddleware = async (
       },
     };
 
-    // Emit the error to the Koa error handler
     ctx.app.emit('error', error, ctx);
   }
 };
